@@ -8,8 +8,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class MadeDaoConfiguration {
 
     @Bean
-    public MadeDao madeDao() {
-        return new MadeDaoInMemoryImpl();
+    public MadeDao madeDao(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        return new MadeDaoImpl(namedParameterJdbcTemplate);
     }
 
 }
