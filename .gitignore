@@ -1,3 +1,4 @@
 .idea/
 target/
 motolibrary.iml
+src/main/resources/db/postresql.properties
