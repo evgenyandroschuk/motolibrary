@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Motorcycles</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Язык
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/">en</a>
+                    <a class="dropdown-item" href="/ru/">ru</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1>Справочник мотоциклов</h1>
+    <p>Список моделей</p>
+    <table class="table table-bordered" width="100">
+        <thead>
+        <tr>
+            <td width="20" height="1">Марка</td>
+            <td width="50">Страна производитель</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="made : ${manufactures}" >
+            <td th:text="${made.description}"></td>
+            <td th:text="${made.country}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
