@@ -24,10 +24,4 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/ru/")
-    public String indexRu(Model model) {
-        model.addAttribute("manufactures", madeDao.getAllManufactures());
-        return "index-ru";
-    }
-
 }
