@@ -51,4 +51,10 @@ values (1, 4, 'Bajaj', 'India');
 insert into  manufacture
 values (2, 5, 'BMW', 'Germany');
 
+insert into resources values(6, 'Honda');
+insert into resource_code values (6, 1, 'Honda');
+
+insert into  manufacture
+values (3, 6, 'Honda', 'Japan');
+
 select * from manufacture;

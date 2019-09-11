@@ -13,8 +13,8 @@ import java.sql.Driver;
 public class DaoConfiguration {
 
     @Bean
-    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource datasSource) {
-        return new NamedParameterJdbcTemplate(datasSource);
+    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
+        return new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Bean
@@ -22,6 +22,7 @@ public class DaoConfiguration {
         String url = System.getenv().get("DATABASE_URL");
         String user = System.getenv().get("DATABASE_USER");
         String password = System.getenv().get("DATABASE_PASSWORD");
+        System.out.println("DATABASE_URL = " + url);
         try {
             SimpleDriverDataSource dataSource =
                 new SimpleDriverDataSource();
