@@ -1,12 +1,12 @@
 package motolibrary.service.dao;
 
+import org.postgresql.Driver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Driver;
 
 
 @Configuration
@@ -23,18 +23,7 @@ public class DaoConfiguration {
         String user = System.getenv().get("DATABASE_USER");
         String password = System.getenv().get("DATABASE_PASSWORD");
         System.out.println("DATABASE_URL = " + url);
-        try {
-            SimpleDriverDataSource dataSource =
-                new SimpleDriverDataSource();
-            Class<? extends Driver> driver = (Class<? extends Driver>)  Class.forName("org.postgresql.Driver");
-            dataSource.setDriverClass(driver);
-            dataSource.setUrl(url);
-            dataSource.setUsername(user);
-            dataSource.setPassword(password);
-            return dataSource;
-        } catch (Exception e) {
-            return null;
-        }
+        return new SimpleDriverDataSource(new Driver(), url, user, password);
     }
 
 }
