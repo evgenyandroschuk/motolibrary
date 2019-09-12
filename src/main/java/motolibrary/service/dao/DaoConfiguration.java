@@ -19,10 +19,10 @@ public class DaoConfiguration {
 
     @Bean
     public DataSource dataSource() {
-        String url = System.getenv().get("DATABASE_URL");
+        String url = System.getenv().get("DB_URL");
         String user = System.getenv().get("DATABASE_USER");
         String password = System.getenv().get("DATABASE_PASSWORD");
-        System.out.println("DATABASE_URL = " + url);
+        System.out.println("DB_URL = " + url);
         return new SimpleDriverDataSource(new Driver(), url, user, password);
     }
 

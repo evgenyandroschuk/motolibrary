@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class MadeDaoImpl extends AbstractDao implements MadeDao {
 
@@ -25,7 +24,7 @@ public class MadeDaoImpl extends AbstractDao implements MadeDao {
         String query = "select * from manufacture";
         List<Manufacture> manufactureList = namedParameterJdbcTemplate.query(query, ImmutableMap.of(), rs -> {
             List<Manufacture> manufactures = new LinkedList<>();
-            while(rs.next()) {
+            while (rs.next()) {
                 manufactures.add(
                     new Manufacture(
                         Optional.of(rs.getLong("id")).orElse(null),
