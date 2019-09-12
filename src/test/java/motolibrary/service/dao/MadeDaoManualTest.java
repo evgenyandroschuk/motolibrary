@@ -29,4 +29,12 @@ public class MadeDaoManualTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(!results.isEmpty());
     }
 
+//    @Test
+//    public void testCreateMade() {
+//        Manufacture manufacture = new Manufacture(
+//            null, null, "test made", "test country"
+//        );
+//        madeDao.createModel(manufacture);
+//    }
+
 }

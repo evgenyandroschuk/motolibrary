@@ -8,4 +8,6 @@ public interface MadeDao {
 
     Set<Manufacture> getAllManufactures();
 
+    void createModel(Manufacture manufacture);
+
 }

@@ -6,12 +6,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Manufacture {
 
-    private long id;
-    private long resourceId;
+    private Long id;
+    private Long resourceId;
     private String description;
     private String country;
 
-    public Manufacture(long id, long resourceId, String description, String country) {
+    public Manufacture(Long id, Long resourceId, String description, String country) {
         this.id = id;
         this.resourceId = resourceId;
         this.description = description;

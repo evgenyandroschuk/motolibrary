@@ -57,4 +57,11 @@ insert into resource_code values (6, 1, 'Honda');
 insert into  manufacture
 values (3, 6, 'Honda', 'Japan');
 
-select * from manufacture;
+
+select * from resources;
+
+create sequence resources_seq start 7;
+create sequence manufacture_seq start 4;
+
+
+select * from resources;
