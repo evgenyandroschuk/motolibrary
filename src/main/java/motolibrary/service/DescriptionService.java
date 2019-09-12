@@ -4,6 +4,6 @@ import motolibrary.model.Languages;
 
 public interface DescriptionService {
 
-    String getDescriptionById(Languages lang, int id);
+    String getDescriptionById(Languages lang, long id);
 
 }

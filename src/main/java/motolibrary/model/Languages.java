@@ -2,6 +2,14 @@ package motolibrary.model;
 
 public enum Languages {
 
-    EN, RU
+    EN(1), RU(2);
+    private final int id;
 
+    Languages(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }
