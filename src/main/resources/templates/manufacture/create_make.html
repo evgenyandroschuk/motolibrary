@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Main</title>
+    <title>Create manufacture</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -20,26 +20,18 @@
     </div>
 </nav>
 <div class="container">
-    <h1>Motorcycle library</h1>
-    <form action="/manufacture/create">
-        <input type="submit" class="btn btn-primary" value="Create manufacture"/>
+    <h3><p th:text="'Create new manufacture'"/></h3>
+    <form action="/manufacture/create/response">
+        <div class="form-group" >
+
+            <label for="description">Manufacture</label>
+            <input type="text" class="form-control" name="description" id="description" required="true"/>
+
+            <label for="country">Country</label>
+            <input type="text" class="form-control" name="country" id="country" required="true"/>
+        </div>
+        <input type="submit" class="btn btn-info" value="Save"/>
     </form>
-    <p/>
-    <table class="table table-bordered" width="100">
-        <thead>
-        <tr>
-            <td width="20" height="1">Made</td>
-            <td width="50">Country</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="made : ${manufactures}" >
-            <td th:text="${made.description}"></td>
-            <td th:text="${made.country}"></td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 </body>
-
 </html>
