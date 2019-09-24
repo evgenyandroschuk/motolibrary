@@ -4,7 +4,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class Manufacture {
+public class Manufacture implements Comparable {
 
     private Long id;
     private Long resourceId;
@@ -72,5 +72,14 @@ public class Manufacture {
             .append("description", description)
             .append("country", country)
             .toString();
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        if (this.equals(o)) {
+            return 0;
+        }
+        return this.getDescription().compareTo(((Manufacture)o).getDescription());
     }
 }

@@ -46,7 +46,7 @@ public class MadeDaoImpl extends AbstractDao implements MadeDao {
         String query = "insert into manufacture (id, resource_id, description, country)\n" +
             "values(nextval('manufacture_seq'), 1, :description, :country)";
         Map<String, Object> params = ImmutableMap.of(
-            "description", manufacture.getDescription(),
+            "description", manufacture.getDescription().toUpperCase(),
             "country", manufacture.getCountry()
             );
 

@@ -1,7 +1,7 @@
 package motolibrary.controller;
 
 import motolibrary.model.Manufacture;
-import motolibrary.service.dao.made.MadeDao;
+import motolibrary.service.ManufactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
-    private final MadeDao madeDao;
+    private final ManufactureService manufactureService;
 
     @Autowired
-    public MainController(MadeDao madeDao) {
-        this.madeDao = madeDao;
+    public MainController(ManufactureService manufactureService) {
+        this.manufactureService = manufactureService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
-        model.addAttribute("manufactures", madeDao.getAllManufactures());
+        model.addAttribute("manufactures", manufactureService.getSortedManufacture());
         return "index";
     }
 
@@ -42,7 +42,7 @@ public class MainController {
         Manufacture manufacture = new Manufacture(null, null, description, country);
         model.addAttribute("manufacture", manufacture);
         try {
-            madeDao.createModel(manufacture);
+            manufactureService.createManufacture(manufacture);
         } catch (DuplicateKeyException e) {
             model.addAttribute("message", "Manufacture " + manufacture.getDescription() + " already exists!");
             return "common_error";
