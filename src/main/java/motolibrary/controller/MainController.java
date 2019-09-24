@@ -3,6 +3,7 @@ package motolibrary.controller;
 import motolibrary.model.Manufacture;
 import motolibrary.service.dao.made.MadeDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class MainController {
 
     @RequestMapping(method = RequestMethod.GET, value = "manufacture/create")
     public String createMake(
-        ) {
+    ) {
         return "manufacture/create_make";
     }
 
@@ -40,7 +41,12 @@ public class MainController {
     ) {
         Manufacture manufacture = new Manufacture(null, null, description, country);
         model.addAttribute("manufacture", manufacture);
-        madeDao.createModel(manufacture);
+        try {
+            madeDao.createModel(manufacture);
+        } catch (DuplicateKeyException e) {
+            model.addAttribute("message", "Manufacture " + manufacture.getDescription() + " already exists!");
+            return "common_error";
+        }
         return "manufacture/create_make_response";
     }
 
