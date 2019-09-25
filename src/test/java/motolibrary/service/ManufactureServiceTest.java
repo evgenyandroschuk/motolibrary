@@ -1,5 +1,6 @@
 package motolibrary.service;
 
+import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
 import motolibrary.service.dao.made.MadeDao;
 import org.mockito.InjectMocks;
@@ -63,7 +64,16 @@ public class ManufactureServiceTest {
     public void testCreateManufacture() {
         Manufacture manufacture = new Manufacture(null, null, "Test", "Country");
         manufactureService.createManufacture(manufacture);
-        Mockito.verify(madeDao).createModel(manufacture);
+        Mockito.verify(madeDao).createManufacture(manufacture);
+    }
+
+    @Test
+    public void testCreateModel() {
+        MainModel mainModel = new MainModel(7, "FZ1-S",2006, 2015);
+        mainModel.setType("Roadster");
+        manufactureService.createModel(mainModel);
+        Mockito.verify(madeDao).createModel(mainModel);
+
     }
 
 

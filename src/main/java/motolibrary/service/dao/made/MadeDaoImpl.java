@@ -2,11 +2,13 @@ package motolibrary.service.dao.made;
 
 
 import com.google.common.collect.ImmutableMap;
+import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
 import motolibrary.service.dao.AbstractDao;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.PreparedStatement;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class MadeDaoImpl extends AbstractDao implements MadeDao {
     }
 
     @Override
-    public void createModel(Manufacture manufacture) {
+    public void createManufacture(Manufacture manufacture) {
         String query = "insert into manufacture (id, resource_id, description, country)\n" +
             "values(nextval('manufacture_seq'), 1, :description, :country)";
         Map<String, Object> params = ImmutableMap.of(
@@ -52,4 +54,50 @@ public class MadeDaoImpl extends AbstractDao implements MadeDao {
 
         namedParameterJdbcTemplate.execute(query, params, PreparedStatement::execute);
     }
+
+    @Override
+    public void createModel(MainModel mainModel) {
+        String query =
+            "insert into model(id, manufacture_id, description, start_year, end_year, type, final_drive, transmission,\n" +
+                "cc, power, torque, top_speed, compression, rake_angle, trail, brakes_front, brakes_rear,\n" +
+                "tires_front, tires_rear, length, width, height, seat_height, wheel_base,\n" +
+                "fuel_capacity, fuel_consumption, dry_weight, wet_weight)\n" +
+                "values(nextval('model_seq'), :manufactureId, :description, :startYear, :endYear, :type, :finalDrive,\n" +
+                ":transmission, :cc, :power, :torque, :topSpeed, :compression, :rakeAngle, :trail, :brakesFront, :brakesRear,\n" +
+                ":tiresFront, :tiresRear, :length, :width, :height, :seatHeight, :wheelBase,\n" +
+                ":fuelCapacity, :fuelConsumption, :dryWeight, :wetWeight" +
+                ")";
+        Map<String, Object> params = new HashMap<>();
+        params.put("manufactureId", mainModel.getManufactureId());
+        params.put("description", mainModel.getDescription().toUpperCase());
+        params.put("startYear", mainModel.getStartYear());
+        params.put("endYear", mainModel.getEndYear());
+        params.put("type", mainModel.getType());
+        params.put("finalDrive", mainModel.getFinalDrive());
+        params.put("transmission", mainModel.getTransmission());
+        params.put("cc", mainModel.getCc());
+        params.put("power", mainModel.getPower());
+        params.put("torque", mainModel.getTorque());
+        params.put("topSpeed", mainModel.getTopSpeed());
+        params.put("compression", mainModel.getCompression());
+        params.put("rakeAngle", mainModel.getRakeAngle());
+        params.put("trail", mainModel.getTrail());
+        params.put("brakesFront", mainModel.getBrakesFront());
+        params.put("brakesRear", mainModel.getBrakesRear());
+        params.put("tiresFront", mainModel.getTiresFront());
+        params.put("tiresRear", mainModel.getBrakesRear());
+        params.put("length", mainModel.getLength());
+        params.put("width", mainModel.getWidth());
+        params.put("height", mainModel.getHeight());
+        params.put("seatHeight", mainModel.getSeatHeight());
+        params.put("wheelBase", mainModel.getWheelBase());
+        params.put("fuelCapacity", mainModel.getFuelCapacity());
+        params.put("fuelConsumption", mainModel.getFuelConsumption());
+        params.put("dryWeight", mainModel.getDryWeight());
+        params.put("wetWeight", mainModel.getWetWeight());
+
+        namedParameterJdbcTemplate.execute(query, params, PreparedStatement::execute);
+    }
+
+
 }

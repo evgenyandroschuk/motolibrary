@@ -63,5 +63,65 @@ select * from resources;
 create sequence resources_seq start 7;
 create sequence manufacture_seq start 4;
 
+create sequence model_seq start 1;
 
-select * from resources;
+create table model (
+    id bigint primary key,
+    manufacture_id int references manufacture(id),
+    description varchar(500) not null,
+    start_year int not null,
+    end_year int not null,
+    type varchar(200),
+
+    final_drive varchar(200),
+    transmission varchar(200),
+
+    cc varchar(100),
+    power varchar(100),
+    torque varchar(200),
+    top_speed varchar(100),
+    compression varchar(100),
+
+    rake_angle varchar(100),
+    trail varchar(100),
+
+    brakes_front varchar(500),
+    brakes_rear varchar(500),
+
+    tires_front varchar(200),
+    tires_rear varchar(200),
+
+    length varchar(100),
+    width varchar(100),
+    height varchar(100),
+    seat_height varchar(100),
+    wheel_base varchar(100),
+    fuel_capacity varchar(100),
+    fuel_consumption varchar(200),
+
+    dry_weight varchar(100),
+    wet_weight varchar(100),
+
+    unique (manufacture_id, description, start_year, end_year)
+);
+
+select * from manufacture;
+
+select id, manufacture_id, description, start_year, end_year, type, final_drive, transmission,
+       cc, power, torque, top_speed, compression, rake_angle, trail, brakes_front, brakes_rear,
+       tires_front, tires_rear, length, width, height, seat_height, wheel_base,
+       fuel_capacity, fuel_consumption, dry_weight, wet_weight
+from model;
+
+insert into model(id, manufacture_id, description, start_year, end_year, type, final_drive, transmission,
+cc, power, torque, top_speed, compression, rake_angle, trail, brakes_front, brakes_rear,
+tires_front, tires_rear, length, width, height, seat_height, wheel_base,
+fuel_capacity, fuel_consumption, dry_weight, wet_weight)
+values(nextval(model_seq), :manufactureId, :description, :startYear, :endYear, :type, :finalDrive,
+:transmission, :cc, :power, :torque, :topSpeed, :compression, :rakeAngle, :trail, :brakesFront, :brakesRear,
+:tiresFront, :tiresRear, :length, :width, :height, :seatHeight, :wheelBase,
+:fuelCapacity, :fuelConsumption, :dryWeight, :wetWeight
+);
+
+select * from model;
+

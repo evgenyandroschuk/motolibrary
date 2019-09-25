@@ -1,5 +1,6 @@
 package motolibrary.service;
 
+import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
 import motolibrary.service.dao.made.MadeDao;
 
@@ -24,6 +25,11 @@ public class ManufactureServiceImpl implements ManufactureService {
 
     @Override
     public void createManufacture(Manufacture manufacture) {
-        madeDao.createModel(manufacture);
+        madeDao.createManufacture(manufacture);
+    }
+
+    @Override
+    public void createModel(MainModel mainModel) {
+        madeDao.createModel(mainModel);
     }
 }
