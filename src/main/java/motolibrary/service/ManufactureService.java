@@ -14,4 +14,6 @@ public interface ManufactureService {
     void createModel(MainModel mainModel);
 
     void updateModel(MainModel mainModel);
+
+    MainModel findModelById(Long id);
 }

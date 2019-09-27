@@ -40,4 +40,9 @@ public class ManufactureServiceImpl implements ManufactureService {
         }
         madeDao.updateModel(mainModel);
     }
+
+    @Override
+    public MainModel findModelById(Long id) {
+        return madeDao.findModelById(id);
+    }
 }

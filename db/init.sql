@@ -134,3 +134,8 @@ height = :height, seat_height = :seatHeight, wheel_base = :wheelBase, fuel_capac
 fuel_consumption = :fuelConsumption, dry_weight = :dryWeight, wet_weight = :wetWeight
 where id = :id;
 
+select id, manufacture_id, description, start_year, end_year, type, final_drive, transmission,
+cc, power, torque, top_speed, compression, rake_angle, trail, brakes_front, brakes_rear,
+tires_front, tires_rear, length, width, height, seat_height, wheel_base,
+fuel_capacity, fuel_consumption, dry_weight, wet_weight from model
+where id = :id;

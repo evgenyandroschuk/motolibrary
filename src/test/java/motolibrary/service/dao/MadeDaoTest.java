@@ -10,7 +10,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -74,42 +76,42 @@ public class MadeDaoTest {
 
         String query =
             "insert into model(id, manufacture_id, description, start_year, end_year, type, final_drive, transmission,\n" +
-            "cc, power, torque, top_speed, compression, rake_angle, trail, brakes_front, brakes_rear,\n" +
-            "tires_front, tires_rear, length, width, height, seat_height, wheel_base,\n" +
-            "fuel_capacity, fuel_consumption, dry_weight, wet_weight)\n" +
-            "values(nextval('model_seq'), :manufactureId, :description, :startYear, :endYear, :type, :finalDrive,\n" +
-            ":transmission, :cc, :power, :torque, :topSpeed, :compression, :rakeAngle, :trail, :brakesFront, :brakesRear,\n" +
-            ":tiresFront, :tiresRear, :length, :width, :height, :seatHeight, :wheelBase,\n" +
-            ":fuelCapacity, :fuelConsumption, :dryWeight, :wetWeight" +
-            ")";
+                "cc, power, torque, top_speed, compression, rake_angle, trail, brakes_front, brakes_rear,\n" +
+                "tires_front, tires_rear, length, width, height, seat_height, wheel_base,\n" +
+                "fuel_capacity, fuel_consumption, dry_weight, wet_weight)\n" +
+                "values(nextval('model_seq'), :manufactureId, :description, :startYear, :endYear, :type, :finalDrive,\n" +
+                ":transmission, :cc, :power, :torque, :topSpeed, :compression, :rakeAngle, :trail, :brakesFront, :brakesRear,\n" +
+                ":tiresFront, :tiresRear, :length, :width, :height, :seatHeight, :wheelBase,\n" +
+                ":fuelCapacity, :fuelConsumption, :dryWeight, :wetWeight" +
+                ")";
         Map<String, Object> params = new HashMap<>();
-            params.put("manufactureId", mainModel.getManufactureId());
-            params.put("description", mainModel.getDescription().toUpperCase());
-            params.put("startYear", mainModel.getStartYear());
-            params.put("endYear", mainModel.getEndYear());
-            params.put("type", mainModel.getType());
-            params.put("finalDrive", mainModel.getFinalDrive());
-            params.put("transmission", mainModel.getTransmission());
-            params.put("cc", mainModel.getCc());
-            params.put("power", mainModel.getPower());
-            params.put("torque", mainModel.getTorque());
-            params.put("topSpeed", mainModel.getTopSpeed());
-            params.put("compression", mainModel.getCompression());
-            params.put("rakeAngle", mainModel.getRakeAngle());
-            params.put("trail", mainModel.getTrail());
-            params.put("brakesFront", mainModel.getBrakesFront());
-            params.put("brakesRear", mainModel.getBrakesRear());
-            params.put("tiresFront", mainModel.getTiresFront());
-            params.put("tiresRear", mainModel.getBrakesRear());
-            params.put("length", mainModel.getLength());
-            params.put("width", mainModel.getWidth());
-            params.put("height", mainModel.getHeight());
-            params.put("seatHeight", mainModel.getSeatHeight());
-            params.put("wheelBase", mainModel.getWheelBase());
-            params.put("fuelCapacity", mainModel.getFuelCapacity());
-            params.put("fuelConsumption", mainModel.getFuelConsumption());
-            params.put("dryWeight", mainModel.getDryWeight());
-            params.put("wetWeight", mainModel.getWetWeight());
+        params.put("manufactureId", mainModel.getManufactureId());
+        params.put("description", mainModel.getDescription().toUpperCase());
+        params.put("startYear", mainModel.getStartYear());
+        params.put("endYear", mainModel.getEndYear());
+        params.put("type", mainModel.getType());
+        params.put("finalDrive", mainModel.getFinalDrive());
+        params.put("transmission", mainModel.getTransmission());
+        params.put("cc", mainModel.getCc());
+        params.put("power", mainModel.getPower());
+        params.put("torque", mainModel.getTorque());
+        params.put("topSpeed", mainModel.getTopSpeed());
+        params.put("compression", mainModel.getCompression());
+        params.put("rakeAngle", mainModel.getRakeAngle());
+        params.put("trail", mainModel.getTrail());
+        params.put("brakesFront", mainModel.getBrakesFront());
+        params.put("brakesRear", mainModel.getBrakesRear());
+        params.put("tiresFront", mainModel.getTiresFront());
+        params.put("tiresRear", mainModel.getBrakesRear());
+        params.put("length", mainModel.getLength());
+        params.put("width", mainModel.getWidth());
+        params.put("height", mainModel.getHeight());
+        params.put("seatHeight", mainModel.getSeatHeight());
+        params.put("wheelBase", mainModel.getWheelBase());
+        params.put("fuelCapacity", mainModel.getFuelCapacity());
+        params.put("fuelConsumption", mainModel.getFuelConsumption());
+        params.put("dryWeight", mainModel.getDryWeight());
+        params.put("wetWeight", mainModel.getWetWeight());
 
         when(namedParameterJdbcTemplate.execute(
             eq(query), eq(params),
@@ -125,7 +127,7 @@ public class MadeDaoTest {
     }
 
     private MainModel getDefaultMainModel() {
-        MainModel mainModel = new MainModel(7, "FZ1-S",2006, 2015);
+        MainModel mainModel = new MainModel(7, "FZ1-S", 2006, 2015);
 
         mainModel.setType("Roadster");
         mainModel.setFinalDrive("O-ring chain");
@@ -202,6 +204,31 @@ public class MadeDaoTest {
             eq(query), eq(params),
             ((PreparedStatementCallback<Boolean>) any(PreparedStatementCallback.class))
         );
+    }
+
+    @Test
+    public void testFindModelById() {
+        Long id = 1L;
+        String query =
+            "select id, manufacture_id, description, start_year, end_year, type, final_drive, transmission,\n" +
+                "cc, power, torque, top_speed, compression, rake_angle, trail, brakes_front, brakes_rear,\n" +
+                "tires_front, tires_rear, length, width, height, seat_height, wheel_base,\n" +
+                "fuel_capacity, fuel_consumption, dry_weight, wet_weight from model\n" +
+                "where id = :id";
+        Map<String, Object> params = ImmutableMap.of("id", id);
+
+        MainModel expected = new MainModel(7, "SBR600R", 2010, 2015);
+        expected.setId(1L);
+
+        when(namedParameterJdbcTemplate.query(
+            eq(query),
+            eq(params),
+            (ResultSetExtractor<MainModel>) any(ResultSetExtractor.class))
+        ).thenReturn(expected);
+
+        MainModel model = madeDao.findModelById(id);
+        Assert.assertEquals(model, expected);
+        verify(namedParameterJdbcTemplate).query(eq(query), eq(params), any(ResultSetExtractor.class));
     }
 
 

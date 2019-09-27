@@ -15,4 +15,6 @@ public interface MadeDao {
 
     void updateModel(MainModel mainModel);
 
+    MainModel findModelById(Long id);
+
 }

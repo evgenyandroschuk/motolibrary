@@ -115,6 +115,17 @@ public class ManufactureServiceTest {
         verify(madeDao).updateModel(mainModel);
     }
 
+    @Test
+    public void testFindModelById() {
+        Long id = 1L;
+        MainModel model = new MainModel(7, "CBF600SA", 2010, 2015);
+        model.setId(id);
+        when(madeDao.findModelById(id)).thenReturn(model);
+        MainModel result = manufactureService.findModelById(id);
+        verify(madeDao).findModelById(id);
+        Assert.assertNotNull(result);
+    }
+
     private Set<Manufacture> getManufactureSet(String one, String two) {
         Set<Manufacture> manufactureSet = new TreeSet<>();
         manufactureSet.add(new Manufacture(null, null, one, "-"));

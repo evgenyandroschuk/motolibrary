@@ -51,6 +51,12 @@ public class MadeDaoManualTest extends AbstractTestNGSpringContextTests {
         madeDao.updateModel(mainModel);
     }
 
+    @Test
+    public void testFindModelById() {
+        MainModel model = madeDao.findModelById(1L);
+        System.out.println(model);
+    }
+
     private MainModel getDefaultMainModel() {
         MainModel mainModel = new MainModel(27, "FZ1-S",2006, 2015);
 
