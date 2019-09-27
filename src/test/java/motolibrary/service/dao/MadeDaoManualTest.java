@@ -40,9 +40,21 @@ public class MadeDaoManualTest extends AbstractTestNGSpringContextTests {
 
 //    @Test
     public void testCreateModel() {
+        MainModel mainModel = getDefaultMainModel();
+        madeDao.createModel(mainModel);
+    }
+
+//    @Test
+    public void testUpdateModel() {
+        MainModel mainModel = getDefaultMainModel();
+        mainModel.setId(1L);
+        madeDao.updateModel(mainModel);
+    }
+
+    private MainModel getDefaultMainModel() {
         MainModel mainModel = new MainModel(27, "FZ1-S",2006, 2015);
 
-        mainModel.setType("Roadster");
+        mainModel.setType("Roadster and naked");
         mainModel.setFinalDrive("O-ring chain");
         mainModel.setTransmission("Constant-Mesh 6-speed w/multi-plate clutch");
         mainModel.setCc("998");
@@ -65,8 +77,7 @@ public class MadeDaoManualTest extends AbstractTestNGSpringContextTests {
         mainModel.setFuelConsumption("5,85-6,46L/100km");
         mainModel.setDryWeight("204Kg");
         mainModel.setWetWeight("220");
-
-        madeDao.createModel(mainModel);
+        return mainModel;
     }
 
 }

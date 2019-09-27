@@ -70,31 +70,7 @@ public class MadeDaoTest {
 
     @Test
     public void testCreateModel() {
-        MainModel mainModel = new MainModel(7, "FZ1-S",2006, 2015);
-
-        mainModel.setType("Roadster");
-        mainModel.setFinalDrive("O-ring chain");
-        mainModel.setTransmission("Constant-Mesh 6-speed w/multi-plate clutch");
-        mainModel.setCc("998");
-        mainModel.setPower("150");
-        mainModel.setTorque("106Nm 8000 RPM");
-        mainModel.setTopSpeed("260 Km/h");
-        mainModel.setCompression(null);
-        mainModel.setRakeAngle("25");
-        mainModel.setTrail("109 mm");
-        mainModel.setBrakesFront("Dual 320 mm floating discs; forged monoblock 4-piston Sumitomo calipers");
-        mainModel.setBrakesRear("245mm disc w/ single-piston pin-slide Nissin caliper");
-        mainModel.setTiresFront("120/70-ZR17 (58W)");
-        mainModel.setTiresRear("190/50-ZR17");
-        mainModel.setLength("84.3 in (2,141 mm)");
-        mainModel.setWidth("30.3 in (770 mm)");
-        mainModel.setHeight("47.4 in (1,204 mm)");
-        mainModel.setSeatHeight("32.1 in (815 mm)");
-        mainModel.setWheelBase("57.5 in (1,460 mm)");
-        mainModel.setFuelCapacity("18L ; 3.4L reserve");
-        mainModel.setFuelConsumption("5,85-6,46L/100km");
-        mainModel.setDryWeight("204Kg");
-        mainModel.setWetWeight("220");
+        MainModel mainModel = getDefaultMainModel();
 
         String query =
             "insert into model(id, manufacture_id, description, start_year, end_year, type, final_drive, transmission,\n" +
@@ -142,6 +118,86 @@ public class MadeDaoTest {
 
         madeDao.createModel(mainModel);
 
+        verify(namedParameterJdbcTemplate).execute(
+            eq(query), eq(params),
+            ((PreparedStatementCallback<Boolean>) any(PreparedStatementCallback.class))
+        );
+    }
+
+    private MainModel getDefaultMainModel() {
+        MainModel mainModel = new MainModel(7, "FZ1-S",2006, 2015);
+
+        mainModel.setType("Roadster");
+        mainModel.setFinalDrive("O-ring chain");
+        mainModel.setTransmission("Constant-Mesh 6-speed w/multi-plate clutch");
+        mainModel.setCc("998");
+        mainModel.setPower("150");
+        mainModel.setTorque("106Nm 8000 RPM");
+        mainModel.setTopSpeed("260 Km/h");
+        mainModel.setCompression(null);
+        mainModel.setRakeAngle("25");
+        mainModel.setTrail("109 mm");
+        mainModel.setBrakesFront("Dual 320 mm floating discs; forged monoblock 4-piston Sumitomo calipers");
+        mainModel.setBrakesRear("245mm disc w/ single-piston pin-slide Nissin caliper");
+        mainModel.setTiresFront("120/70-ZR17 (58W)");
+        mainModel.setTiresRear("190/50-ZR17");
+        mainModel.setLength("84.3 in (2,141 mm)");
+        mainModel.setWidth("30.3 in (770 mm)");
+        mainModel.setHeight("47.4 in (1,204 mm)");
+        mainModel.setSeatHeight("32.1 in (815 mm)");
+        mainModel.setWheelBase("57.5 in (1,460 mm)");
+        mainModel.setFuelCapacity("18L ; 3.4L reserve");
+        mainModel.setFuelConsumption("5,85-6,46L/100km");
+        mainModel.setDryWeight("204Kg");
+        mainModel.setWetWeight("220");
+        return mainModel;
+    }
+
+    @Test
+    public void testUpdateModel() {
+        MainModel mainModel = getDefaultMainModel();
+        mainModel.setId(10L);
+
+        String query = "update model\n" +
+            "set  manufacture_id = :manufactureId, description = :description, start_year = :startYear, end_year = :endYear,\n" +
+            "type = :type, final_drive = :finalDrive, transmission = :transmission, cc = :cc, power = :power, torque = :torque,\n" +
+            "top_speed = :topSpeed, compression = :compression, rake_angle = :rakeAngle, trail = :trail, brakes_front = :brakesFront,\n" +
+            "brakes_rear = :brakesRear, tires_front = :tiresFront, tires_rear = :tiresRear, length = :length, width = :width,\n" +
+            "height = :height, seat_height = :seatHeight, wheel_base = :wheelBase, fuel_capacity = :fuelCapacity,\n" +
+            "fuel_consumption = :fuelConsumption, dry_weight = :dryWeight, wet_weight = :wetWeight\n" +
+            "where id = :id";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", mainModel.getId());
+        params.put("manufactureId", mainModel.getManufactureId());
+        params.put("description", mainModel.getDescription().toUpperCase());
+        params.put("startYear", mainModel.getStartYear());
+        params.put("endYear", mainModel.getEndYear());
+        params.put("type", mainModel.getType());
+        params.put("finalDrive", mainModel.getFinalDrive());
+        params.put("transmission", mainModel.getTransmission());
+        params.put("cc", mainModel.getCc());
+        params.put("power", mainModel.getPower());
+        params.put("torque", mainModel.getTorque());
+        params.put("topSpeed", mainModel.getTopSpeed());
+        params.put("compression", mainModel.getCompression());
+        params.put("rakeAngle", mainModel.getRakeAngle());
+        params.put("trail", mainModel.getTrail());
+        params.put("brakesFront", mainModel.getBrakesFront());
+        params.put("brakesRear", mainModel.getBrakesRear());
+        params.put("tiresFront", mainModel.getTiresFront());
+        params.put("tiresRear", mainModel.getBrakesRear());
+        params.put("length", mainModel.getLength());
+        params.put("width", mainModel.getWidth());
+        params.put("height", mainModel.getHeight());
+        params.put("seatHeight", mainModel.getSeatHeight());
+        params.put("wheelBase", mainModel.getWheelBase());
+        params.put("fuelCapacity", mainModel.getFuelCapacity());
+        params.put("fuelConsumption", mainModel.getFuelConsumption());
+        params.put("dryWeight", mainModel.getDryWeight());
+        params.put("wetWeight", mainModel.getWetWeight());
+
+        madeDao.updateModel(mainModel);
         verify(namedParameterJdbcTemplate).execute(
             eq(query), eq(params),
             ((PreparedStatementCallback<Boolean>) any(PreparedStatementCallback.class))

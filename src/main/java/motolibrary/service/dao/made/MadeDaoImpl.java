@@ -67,6 +67,25 @@ public class MadeDaoImpl extends AbstractDao implements MadeDao {
                 ":tiresFront, :tiresRear, :length, :width, :height, :seatHeight, :wheelBase,\n" +
                 ":fuelCapacity, :fuelConsumption, :dryWeight, :wetWeight" +
                 ")";
+        Map<String, Object> params = getParamsByModel(mainModel);
+        namedParameterJdbcTemplate.execute(query, params, PreparedStatement::execute);
+    }
+
+    @Override
+    public void updateModel(MainModel mainModel) {
+        String query = "update model\n" +
+            "set  manufacture_id = :manufactureId, description = :description, start_year = :startYear, end_year = :endYear,\n" +
+            "type = :type, final_drive = :finalDrive, transmission = :transmission, cc = :cc, power = :power, torque = :torque,\n" +
+            "top_speed = :topSpeed, compression = :compression, rake_angle = :rakeAngle, trail = :trail, brakes_front = :brakesFront,\n" +
+            "brakes_rear = :brakesRear, tires_front = :tiresFront, tires_rear = :tiresRear, length = :length, width = :width,\n" +
+            "height = :height, seat_height = :seatHeight, wheel_base = :wheelBase, fuel_capacity = :fuelCapacity,\n" +
+            "fuel_consumption = :fuelConsumption, dry_weight = :dryWeight, wet_weight = :wetWeight\n" +
+            "where id = :id";
+        Map<String, Object> params = getParamsByModelWithId(mainModel);
+        namedParameterJdbcTemplate.execute(query, params, PreparedStatement::execute);
+    }
+
+    private Map<String, Object> getParamsByModel(MainModel mainModel) {
         Map<String, Object> params = new HashMap<>();
         params.put("manufactureId", mainModel.getManufactureId());
         params.put("description", mainModel.getDescription().toUpperCase());
@@ -95,8 +114,13 @@ public class MadeDaoImpl extends AbstractDao implements MadeDao {
         params.put("fuelConsumption", mainModel.getFuelConsumption());
         params.put("dryWeight", mainModel.getDryWeight());
         params.put("wetWeight", mainModel.getWetWeight());
+        return params;
+    }
 
-        namedParameterJdbcTemplate.execute(query, params, PreparedStatement::execute);
+    private Map<String, Object> getParamsByModelWithId(MainModel mainModel) {
+        Map<String, Object> params = getParamsByModel(mainModel);
+        params.put("id", mainModel.getId());
+        return params;
     }
 
 

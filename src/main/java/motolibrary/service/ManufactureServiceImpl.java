@@ -32,4 +32,12 @@ public class ManufactureServiceImpl implements ManufactureService {
     public void createModel(MainModel mainModel) {
         madeDao.createModel(mainModel);
     }
+
+    @Override
+    public void updateModel(MainModel mainModel) {
+        if (mainModel.getId() == null) {
+            throw new RuntimeException("Empty ID");
+        }
+        madeDao.updateModel(mainModel);
+    }
 }

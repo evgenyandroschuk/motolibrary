@@ -13,4 +13,6 @@ public interface MadeDao {
 
     void createModel(MainModel mainModel);
 
+    void updateModel(MainModel mainModel);
+
 }

@@ -12,4 +12,6 @@ public interface ManufactureService {
     void createManufacture(Manufacture manufacture);
 
     void createModel(MainModel mainModel);
+
+    void updateModel(MainModel mainModel);
 }

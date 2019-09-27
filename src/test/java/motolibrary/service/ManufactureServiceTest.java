@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static org.mockito.Mockito.*;
+
 public class ManufactureServiceTest {
 
     @InjectMocks
@@ -37,7 +39,7 @@ public class ManufactureServiceTest {
 
     @Test(dataProvider = "manufactureProvider")
     public void testSortedManufacture(Set<Manufacture> manufactures, String one, String two) {
-        Mockito.when(madeDao.getAllManufactures()).thenReturn(manufactures);
+        when(madeDao.getAllManufactures()).thenReturn(manufactures);
 
         List<Manufacture> result = manufactureService.getSortedManufacture();
         Assert.assertEquals(result.get(0).getDescription(), one);
@@ -64,7 +66,7 @@ public class ManufactureServiceTest {
     public void testCreateManufacture() {
         Manufacture manufacture = new Manufacture(null, null, "Test", "Country");
         manufactureService.createManufacture(manufacture);
-        Mockito.verify(madeDao).createManufacture(manufacture);
+        verify(madeDao).createManufacture(manufacture);
     }
 
     @Test
@@ -72,10 +74,46 @@ public class ManufactureServiceTest {
         MainModel mainModel = new MainModel(7, "FZ1-S",2006, 2015);
         mainModel.setType("Roadster");
         manufactureService.createModel(mainModel);
-        Mockito.verify(madeDao).createModel(mainModel);
-
+        verify(madeDao).createModel(mainModel);
     }
 
+    @Test(expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = "Empty ID")
+    public void testUpdateModelError() {
+        MainModel mainModel = new MainModel(7, "FZ1-S",2006, 2015);
+        manufactureService.updateModel(mainModel);
+    }
+
+    @Test
+    public void testUpdateModel() {
+        MainModel mainModel = new MainModel(5, "G310R",2016, null);
+        mainModel.setId(15L);
+        mainModel.setType("Roadster");
+        mainModel.setFinalDrive("O-ring chain");
+        mainModel.setTransmission("Constant-Mesh 6-speed w/multi-plate clutch");
+        mainModel.setCc("998");
+        mainModel.setPower("150");
+        mainModel.setTorque("106Nm 8000 RPM");
+        mainModel.setTopSpeed("260 Km/h");
+        mainModel.setCompression("compression");
+        mainModel.setRakeAngle("25");
+        mainModel.setTrail("109 mm");
+        mainModel.setBrakesFront("Dual 320 mm floating discs; forged monoblock 4-piston Sumitomo calipers");
+        mainModel.setBrakesRear("245mm disc w/ single-piston pin-slide Nissin caliper");
+        mainModel.setTiresFront("120/70-ZR17 (58W)");
+        mainModel.setTiresRear("190/50-ZR17");
+        mainModel.setLength("84.3 in (2,141 mm)");
+        mainModel.setWidth("30.3 in (770 mm)");
+        mainModel.setHeight("47.4 in (1,204 mm)");
+        mainModel.setSeatHeight("32.1 in (815 mm)");
+        mainModel.setWheelBase("57.5 in (1,460 mm)");
+        mainModel.setFuelCapacity("18L ; 3.4L reserve");
+        mainModel.setFuelConsumption("5,85-6,46L/100km");
+        mainModel.setDryWeight("204Kg");
+        mainModel.setWetWeight("220");
+
+        manufactureService.updateModel(mainModel);
+        verify(madeDao).updateModel(mainModel);
+    }
 
     private Set<Manufacture> getManufactureSet(String one, String two) {
         Set<Manufacture> manufactureSet = new TreeSet<>();
@@ -83,6 +121,5 @@ public class ManufactureServiceTest {
         manufactureSet.add(new Manufacture(null, null, two, "-"));
         return manufactureSet;
     }
-
 
 }

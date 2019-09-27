@@ -125,3 +125,12 @@ values(nextval(model_seq), :manufactureId, :description, :startYear, :endYear, :
 
 select * from model;
 
+update model
+set  manufacture_id = :manufactureId, description = :description, start_year = :startYear, end_year = :endYear,
+type = :type, final_drive = :finalDrive, transmission = :transmission, cc = :cc, power = :power, torque = :torque,
+top_speed = :topSpeed, compression = :compression, rake_angle = :rakeAngle, trail = :trail, brakes_front = :brakesFront,
+brakes_rear = :brakesRear, tires_front = :tiresFront, tires_rear = :tiresRear, length = :length, width = :width,
+height = :height, seat_height = :seatHeight, wheel_base = :wheelBase, fuel_capacity = :fuelCapacity,
+fuel_consumption = :fuelConsumption, dry_weight = :dryWeight, wet_weight = :wetWeight
+where id = :id;
+
