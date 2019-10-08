@@ -2,6 +2,7 @@ package motolibrary.service;
 
 import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
+import motolibrary.model.ModelShortDetails;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface ManufactureService {
     void updateModel(MainModel mainModel);
 
     MainModel findModelById(Long id);
+
+    List<ModelShortDetails> getModelsByManufacture(int id);
 }

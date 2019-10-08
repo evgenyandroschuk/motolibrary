@@ -1,8 +1,10 @@
 package motolibrary.service.dao;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
+import motolibrary.model.ModelShortDetails;
 import motolibrary.service.dao.made.MadeDaoImpl;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,6 +20,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Matchers.any;
@@ -228,6 +231,27 @@ public class MadeDaoTest {
 
         MainModel model = madeDao.findModelById(id);
         Assert.assertEquals(model, expected);
+        verify(namedParameterJdbcTemplate).query(eq(query), eq(params), any(ResultSetExtractor.class));
+    }
+
+    @Test
+    public void testGetModelsByManufacture() {
+        int id = 27;
+        String query = "select id, manufacture_id, description, start_year, end_year from model " +
+            "where manufacture_id = :manufactureId";
+        Map<String, Object> params = ImmutableMap.of("manufactureId", id);
+
+        List<ModelShortDetails> result = ImmutableList.of(
+            new ModelShortDetails(4, "FZ-1 S", 2006, 2015),
+            new ModelShortDetails(7, "MT-07", 2014, 2018)
+        );
+
+        when(namedParameterJdbcTemplate.query(
+            eq(query), eq(params),
+            (ResultSetExtractor<List<ModelShortDetails>>) any(ResultSetExtractor.class))
+        ).thenReturn(result);
+        List<ModelShortDetails> expected = madeDao.getModelsByManufacture(id);
+        Assert.assertEquals(expected, result);
         verify(namedParameterJdbcTemplate).query(eq(query), eq(params), any(ResultSetExtractor.class));
     }
 

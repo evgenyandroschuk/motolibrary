@@ -4,6 +4,7 @@ package motolibrary.service.dao.made;
 import com.google.common.collect.ImmutableMap;
 import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
+import motolibrary.model.ModelShortDetails;
 import motolibrary.service.dao.AbstractDao;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -152,6 +153,27 @@ public class MadeDaoImpl extends AbstractDao implements MadeDao {
                 model.setWetWeight(wetWeight);
             }
             return model;
+        });
+    }
+
+    @Override
+    public List<ModelShortDetails> getModelsByManufacture(int id) {
+        String query = "select id, manufacture_id, description, start_year, end_year from model " +
+            "where manufacture_id = :manufactureId";
+        Map<String, Object> params = ImmutableMap.of("manufactureId", id);
+
+        return namedParameterJdbcTemplate.query(query, params, rs -> {
+            List<ModelShortDetails> result = new LinkedList<>();
+            while (rs.next()) {
+                result.add(
+                    new ModelShortDetails(
+                        rs.getInt("id"),
+                        rs.getString("description"),
+                        Optional.of(rs.getInt("start_year")).orElse(null),
+                        Optional.of(rs.getInt("end_year")).orElse(null)
+                ));
+            }
+            return result;
         });
     }
 

@@ -1,7 +1,9 @@
 package motolibrary.service;
 
+import com.google.common.collect.ImmutableList;
 import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
+import motolibrary.model.ModelShortDetails;
 import motolibrary.service.dao.made.MadeDao;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -17,7 +19,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class ManufactureServiceTest {
 
@@ -48,7 +51,7 @@ public class ManufactureServiceTest {
 
     @DataProvider
     private Object[][] manufactureProvider() {
-        return new Object[][] {
+        return new Object[][]{
             {
                 getManufactureSet("AB", "AAA"),
                 "AAA",
@@ -71,7 +74,7 @@ public class ManufactureServiceTest {
 
     @Test
     public void testCreateModel() {
-        MainModel mainModel = new MainModel(7, "FZ1-S",2006, 2015);
+        MainModel mainModel = new MainModel(7, "FZ1-S", 2006, 2015);
         mainModel.setType("Roadster");
         manufactureService.createModel(mainModel);
         verify(madeDao).createModel(mainModel);
@@ -79,13 +82,13 @@ public class ManufactureServiceTest {
 
     @Test(expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = "Empty ID")
     public void testUpdateModelError() {
-        MainModel mainModel = new MainModel(7, "FZ1-S",2006, 2015);
+        MainModel mainModel = new MainModel(7, "FZ1-S", 2006, 2015);
         manufactureService.updateModel(mainModel);
     }
 
     @Test
     public void testUpdateModel() {
-        MainModel mainModel = new MainModel(5, "G310R",2016, null);
+        MainModel mainModel = new MainModel(5, "G310R", 2016, null);
         mainModel.setId(15L);
         mainModel.setType("Roadster");
         mainModel.setFinalDrive("O-ring chain");
@@ -124,6 +127,20 @@ public class ManufactureServiceTest {
         MainModel result = manufactureService.findModelById(id);
         verify(madeDao).findModelById(id);
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void testGetModelsByManufacture() {
+        Integer id = 27;
+        List<ModelShortDetails> result = ImmutableList.of(
+            new ModelShortDetails(4, "FZ-1 S", 2006, 2015),
+            new ModelShortDetails(7, "MT-07", 2014, 2018)
+        );
+
+        when(madeDao.getModelsByManufacture(id)).thenReturn(result);
+        List<ModelShortDetails> expected = manufactureService.getModelsByManufacture(id);
+        verify(madeDao).getModelsByManufacture(id);
+        Assert.assertEquals(expected, result);
     }
 
     private Set<Manufacture> getManufactureSet(String one, String two) {

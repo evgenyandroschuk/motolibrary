@@ -139,3 +139,5 @@ cc, power, torque, top_speed, compression, rake_angle, trail, brakes_front, brak
 tires_front, tires_rear, length, width, height, seat_height, wheel_base,
 fuel_capacity, fuel_consumption, dry_weight, wet_weight from model
 where id = :id;
+
+select id, manufacture_id, description, start_year, end_year from model where manufacture_id = 27;

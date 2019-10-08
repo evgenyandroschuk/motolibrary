@@ -2,7 +2,9 @@ package motolibrary.service.dao.made;
 
 import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
+import motolibrary.model.ModelShortDetails;
 
+import java.util.List;
 import java.util.Set;
 
 public interface MadeDao {
@@ -16,5 +18,7 @@ public interface MadeDao {
     void updateModel(MainModel mainModel);
 
     MainModel findModelById(Long id);
+
+    List<ModelShortDetails> getModelsByManufacture(int id);
 
 }

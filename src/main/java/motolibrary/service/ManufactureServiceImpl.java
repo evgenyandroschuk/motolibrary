@@ -2,6 +2,7 @@ package motolibrary.service;
 
 import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
+import motolibrary.model.ModelShortDetails;
 import motolibrary.service.dao.made.MadeDao;
 
 import java.util.List;
@@ -44,5 +45,10 @@ public class ManufactureServiceImpl implements ManufactureService {
     @Override
     public MainModel findModelById(Long id) {
         return madeDao.findModelById(id);
+    }
+
+    @Override
+    public List<ModelShortDetails> getModelsByManufacture(int id) {
+        return madeDao.getModelsByManufacture(id);
     }
 }

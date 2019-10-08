@@ -2,6 +2,7 @@ package motolibrary.service.dao;
 
 import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
+import motolibrary.model.ModelShortDetails;
 import motolibrary.service.dao.made.MadeDao;
 import motolibrary.service.dao.made.MadeDaoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.Set;
 
 @EnableConfigurationProperties(JdbcSettings.class)
@@ -57,32 +59,38 @@ public class MadeDaoManualTest extends AbstractTestNGSpringContextTests {
         System.out.println(model);
     }
 
+    @Test
+    public void testGetModelsById() {
+        List<ModelShortDetails> result = madeDao.getModelsByManufacture(27);
+        result.forEach(System.out::println);
+    }
+
     private MainModel getDefaultMainModel() {
-        MainModel mainModel = new MainModel(27, "FZ1-S",2006, 2015);
+        MainModel mainModel = new MainModel(27, "MT-07",2014, 2018);
 
         mainModel.setType("Roadster and naked");
         mainModel.setFinalDrive("O-ring chain");
         mainModel.setTransmission("Constant-Mesh 6-speed w/multi-plate clutch");
-        mainModel.setCc("998");
-        mainModel.setPower("150");
-        mainModel.setTorque("106Nm 8000 RPM");
-        mainModel.setTopSpeed("260 Km/h");
-        mainModel.setCompression(null);
-        mainModel.setRakeAngle("25");
-        mainModel.setTrail("109 mm");
-        mainModel.setBrakesFront("Dual 320 mm floating discs; forged monoblock 4-piston Sumitomo calipers");
-        mainModel.setBrakesRear("245mm disc w/ single-piston pin-slide Nissin caliper");
-        mainModel.setTiresFront("120/70-ZR17 (58W)");
-        mainModel.setTiresRear("190/50-ZR17");
-        mainModel.setLength("84.3 in (2,141 mm)");
-        mainModel.setWidth("30.3 in (770 mm)");
-        mainModel.setHeight("47.4 in (1,204 mm)");
-        mainModel.setSeatHeight("32.1 in (815 mm)");
-        mainModel.setWheelBase("57.5 in (1,460 mm)");
-        mainModel.setFuelCapacity("18L ; 3.4L reserve");
-        mainModel.setFuelConsumption("5,85-6,46L/100km");
-        mainModel.setDryWeight("204Kg");
-        mainModel.setWetWeight("220");
+//        mainModel.setCc("998");
+//        mainModel.setPower("150");
+//        mainModel.setTorque("106Nm 8000 RPM");
+//        mainModel.setTopSpeed("260 Km/h");
+//        mainModel.setCompression(null);
+//        mainModel.setRakeAngle("25");
+//        mainModel.setTrail("109 mm");
+//        mainModel.setBrakesFront("Dual 320 mm floating discs; forged monoblock 4-piston Sumitomo calipers");
+//        mainModel.setBrakesRear("245mm disc w/ single-piston pin-slide Nissin caliper");
+//        mainModel.setTiresFront("120/70-ZR17 (58W)");
+//        mainModel.setTiresRear("190/50-ZR17");
+//        mainModel.setLength("84.3 in (2,141 mm)");
+//        mainModel.setWidth("30.3 in (770 mm)");
+//        mainModel.setHeight("47.4 in (1,204 mm)");
+//        mainModel.setSeatHeight("32.1 in (815 mm)");
+//        mainModel.setWheelBase("57.5 in (1,460 mm)");
+//        mainModel.setFuelCapacity("18L ; 3.4L reserve");
+//        mainModel.setFuelConsumption("5,85-6,46L/100km");
+//        mainModel.setDryWeight("204Kg");
+//        mainModel.setWetWeight("220");
         return mainModel;
     }
 
