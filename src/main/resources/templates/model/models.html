@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Main</title>
+    <title>Models</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -20,25 +20,21 @@
     </div>
 </nav>
 <div class="container">
-    <h1>Motorcycle library</h1>
-    <form action="/manufacture/create">
-        <input type="submit" class="btn btn-primary" value="Create manufacture"/>
-    </form>
+    <h1><p th:text="${manufacture}"/></h1>
     <p/>
     <table class="table table-bordered" width="100">
         <thead>
         <tr>
-            <td width="20" height="1">Made</td>
-            <td width="50">Country</td>
+            <td width="20" height="1">Description</td>
+            <td width="50">Start year</td>
+            <td width="50">End year</td>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="made : ${manufactures}" >
-            <td>
-                <a th:href="@{/models(manufactureId=${made.getId()},manufacture = ${made.getDescription()})}"
-                   th:text="${made.description}"/>
-            </td>
-            <td th:text="${made.country}"></td>
+        <tr th:each="model : ${modelDetails}" >
+            <td th:text="${model.description}"></td>
+            <td th:text="${model.startYear}"></td>
+            <td th:text="${model.endYear}"></td>
         </tr>
         </tbody>
     </table>

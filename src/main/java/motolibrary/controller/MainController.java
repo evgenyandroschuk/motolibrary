@@ -1,6 +1,7 @@
 package motolibrary.controller;
 
 import motolibrary.model.Manufacture;
+import motolibrary.model.ModelShortDetails;
 import motolibrary.service.ManufactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 
 @Controller
@@ -48,6 +51,15 @@ public class MainController {
             return "common_error";
         }
         return "manufacture/create_make_response";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "models")
+    public String getModels(Model model, @RequestParam Integer manufactureId, @RequestParam String manufacture) {
+        List<ModelShortDetails> models = manufactureService.getModelsByManufacture(manufactureId);
+        model.addAttribute("manufacture", manufacture);
+        model.addAttribute("modelDetails", models);
+
+        return "model/models";
     }
 
 }
