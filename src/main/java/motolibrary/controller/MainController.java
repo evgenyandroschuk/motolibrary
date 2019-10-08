@@ -1,5 +1,6 @@
 package motolibrary.controller;
 
+import motolibrary.model.MainModel;
 import motolibrary.model.Manufacture;
 import motolibrary.model.ModelShortDetails;
 import motolibrary.service.ManufactureService;
@@ -60,6 +61,13 @@ public class MainController {
         model.addAttribute("modelDetails", models);
 
         return "model/models";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "model/detail")
+    public String getModelDetails(Model model, @RequestParam Long id) {
+        MainModel mainModel = manufactureService.findModelById(id);
+        model.addAttribute("mainModel", mainModel);
+        return "model/model_details";
     }
 
 }

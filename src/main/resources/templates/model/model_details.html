@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Model details</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Motorcycles</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1><p th:text="${mainModel.getDescription()} + '   ' + ${mainModel.startYear} +  '-' + ${mainModel.endYear}"/></h1>
+    <p/>
+    <table class="table table-bordered" width="100">
+        <thead>
+        <tr>
+            <td width="50" style="font-weight:bold">Parameter</td>
+            <td width="50" style="font-weight:bold">Value</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td width="50">Type</td> <td th:text="${mainModel.getType()}"></td></tr>
+        <tr><td width="50">Final drive</td> <td th:text="${mainModel.getFinalDrive()}"></td></tr>
+        <tr><td width="50">Transmission</td> <td th:text="${mainModel.getTransmission()}"></td></tr>
+        <tr><td width="50">CC</td> <td th:text="${mainModel.getCc()}"></td></tr>
+        <tr><td width="50">Power</td> <td th:text="${mainModel.getPower()}"></td></tr>
+        <tr><td width="50">Torque</td> <td th:text="${mainModel.getTorque()}"></td></tr>
+        <tr><td width="50">Top speed</td> <td th:text="${mainModel.getTopSpeed()}"></td></tr>
+        <tr><td width="50">Compression</td> <td th:text="${mainModel.getCompression()}"></td></tr>
+        <tr><td width="50">Rake angle</td> <td th:text="${mainModel.getRakeAngle()}"></td></tr>
+        <tr><td width="50">Trail</td> <td th:text="${mainModel.getTrail()}"></td></tr>
+        <tr><td width="50">Brakes front</td> <td th:text="${mainModel.getBrakesFront()}"></td></tr>
+        <tr><td width="50">Brakes rear</td> <td th:text="${mainModel.getBrakesRear()}"></td></tr>
+        <tr><td width="50">Tires front</td> <td th:text="${mainModel.getTiresFront()}"></td></tr>
+        <tr><td width="50">Tires rear</td> <td th:text="${mainModel.getTiresRear()}"></td></tr>
+        <tr><td width="50">Length</td> <td th:text="${mainModel.getLength()}"></td></tr>
+        <tr><td width="50">Width</td> <td th:text="${mainModel.getWidth()}"></td></tr>
+        <tr><td width="50">Height</td> <td th:text="${mainModel.getHeight()}"></td></tr>
+        <tr><td width="50">Seat height</td> <td th:text="${mainModel.getSeatHeight()}"></td></tr>
+        <tr><td width="50">Wheel base</td> <td th:text="${mainModel.getWheelBase()}"></td></tr>
+        <tr><td width="50">Fuel capacity</td> <td th:text="${mainModel.getFuelCapacity()}"></td></tr>
+        <tr><td width="50">Fuel consumption</td> <td th:text="${mainModel.getFuelConsumption()}"></td></tr>
+        <tr><td width="50">Dry weight</td> <td th:text="${mainModel.getDryWeight()}"></td></tr>
+        <tr><td width="50">Wet weight</td> <td th:text="${mainModel.getWetWeight()}"></td></tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
