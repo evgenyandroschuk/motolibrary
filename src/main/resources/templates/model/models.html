@@ -26,15 +26,12 @@
         <thead>
         <tr>
             <td width="20" style="font-weight:bold" height="1">Description</td>
-            <td width="50" style="font-weight:bold">Start year</td>
-            <td width="50" style="font-weight:bold">End year</td>
         </tr>
         </thead>
         <tbody>
         <tr th:each="model : ${modelDetails}" >
-            <td th:text="${model.description}"></td>
-            <td th:text="${model.startYear}"></td>
-            <td th:text="${model.endYear}"></td>
+            <td><a th:href="@{/model/details(id=${model.getId()})}"
+                   th:text="${model.description} + '. ' + ${model.startYear} + ' - ' +${model.endYear}"/></td>
         </tr>
         </tbody>
     </table>

@@ -63,7 +63,7 @@ public class MainController {
         return "model/models";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "model/detail")
+    @RequestMapping(method = RequestMethod.GET, value = "model/details")
     public String getModelDetails(Model model, @RequestParam Long id) {
         MainModel mainModel = manufactureService.findModelById(id);
         model.addAttribute("mainModel", mainModel);
