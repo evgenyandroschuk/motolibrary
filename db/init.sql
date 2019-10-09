@@ -65,12 +65,14 @@ create sequence manufacture_seq start 4;
 
 create sequence model_seq start 1;
 
+alter table model alter column end_year drop not null ;
+
 create table model (
     id bigint primary key,
     manufacture_id int references manufacture(id),
     description varchar(500) not null,
     start_year int not null,
-    end_year int not null,
+    end_year int ,
     type varchar(200),
 
     final_drive varchar(200),
@@ -141,3 +143,5 @@ fuel_capacity, fuel_consumption, dry_weight, wet_weight from model
 where id = :id;
 
 select id, manufacture_id, description, start_year, end_year from model where manufacture_id = 27;
+
+select  * from model;

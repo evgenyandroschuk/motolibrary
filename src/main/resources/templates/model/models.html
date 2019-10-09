@@ -22,6 +22,11 @@
 <div class="container">
     <h1><p th:text="${manufacture}"/></h1>
     <p/>
+    <form action="/model/add">
+        <input type="hidden" class="form-control" name = "description" id="description" th:value ="${manufacture}" required="true" />
+        <input type="hidden" class="form-control" name = "id" id="id" th:value ="${manufactureId}" required="true" />
+        <input type="submit" class="btn btn-primary" value="Create model"/>
+    </form>
     <table class="table table-bordered" width="100">
         <thead>
         <tr>
