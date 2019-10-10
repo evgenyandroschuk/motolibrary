@@ -20,7 +20,13 @@
     </div>
 </nav>
 <div class="container">
-    <h1><p th:text="${mainModel.getDescription()} + '   ' + ${mainModel.startYear} +  '-' + ${mainModel.endYear}"/></h1>
+    <form action="/models">
+        <input type="hidden" class="form-control" name = "manufactureId" id="manufactureId" th:value ="${mainModel.getManufactureId()}" required="true">
+        <input type="hidden" class="form-control" name = "manufacture" id="manufacture" th:value ="${manufacture.description}" required="true" />
+        <input type="submit" class="btn btn-info" value="Back"/>
+    </form>
+
+    <h1><p th:text="${mainModel.getDescription()} + '   ' + ${mainModel.startYear} +  '-' + ${mainModel.getEndYearString()}"/></h1>
     <p/>
     <table class="table table-bordered" width="100">
         <thead>
@@ -30,6 +36,8 @@
         </tr>
         </thead>
         <tbody>
+        <tr><td width="50">Start year</td> <td th:text="${mainModel.startYear}"></td></tr>
+        <tr><td width="50">End year</td> <td th:text="${mainModel.getEndYearString()}"></td></tr>
         <tr><td width="50">Type</td> <td th:text="${mainModel.getType()}"></td></tr>
         <tr><td width="50">Final drive</td> <td th:text="${mainModel.getFinalDrive()}"></td></tr>
         <tr><td width="50">Transmission</td> <td th:text="${mainModel.getTransmission()}"></td></tr>
@@ -55,6 +63,12 @@
         <tr><td width="50">Wet weight</td> <td th:text="${mainModel.getWetWeight()}"></td></tr>
         </tbody>
     </table>
+
+    <form action="/models">
+        <input type="hidden" class="form-control" name = "manufactureId" id="manufactureId" th:value ="${mainModel.getManufactureId()}" required="true">
+        <input type="hidden" class="form-control" name = "manufacture" id="manufacture" th:value ="${manufacture.description}" required="true" />
+        <input type="submit" class="btn btn-info" value="Back"/>
+    </form>
 </div>
 </body>
 

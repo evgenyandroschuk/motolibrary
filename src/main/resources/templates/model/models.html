@@ -36,7 +36,7 @@
         <tbody>
         <tr th:each="model : ${modelDetails}" >
             <td><a th:href="@{/model/details(id=${model.getId()})}"
-                   th:text="${model.description} + '. ' + ${model.startYear} + ' - ' +${model.endYear}"/></td>
+                   th:text="${model.description} + '. ' + ${model.startYear} + ' - ' +${model.getEndYearString()}"/></td>
         </tr>
         </tbody>
     </table>

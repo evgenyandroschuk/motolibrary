@@ -273,6 +273,13 @@ public class MainModel implements Comparable  {
         this.wetWeight = wetWeight;
     }
 
+    public String getEndYearString() {
+        if (endYear == null || endYear.equals(0)) {
+            return "till now";
+        }
+        return endYear.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

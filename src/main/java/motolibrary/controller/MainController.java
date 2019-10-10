@@ -67,7 +67,10 @@ public class MainController {
     @RequestMapping(method = RequestMethod.GET, value = "model/details")
     public String getModelDetails(Model model, @RequestParam Long id) {
         MainModel mainModel = manufactureService.findModelById(id);
+        Integer manufactureId = mainModel.getManufactureId();
+        Manufacture manufacture = getManufactureById(manufactureId);
         model.addAttribute("mainModel", mainModel);
+        model.addAttribute("manufacture", manufacture);
         return "model/model_details";
     }
 
@@ -143,8 +146,16 @@ public class MainController {
         mainModel.setWetWeight(wetWeight);
 
         model.addAttribute("mainModel", mainModel);
+        model.addAttribute("manufacture", getManufactureById(manufactureId));
         manufactureService.createModel(mainModel);
         return "model/model_details_response";
+    }
+
+    private Manufacture getManufactureById(Integer manufactureId) {
+        return manufactureService.getSortedManufacture()
+            .stream().filter(t -> t.getId() == manufactureId)
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("ManufactureId " + manufactureId + "not found"));
     }
 
 }
