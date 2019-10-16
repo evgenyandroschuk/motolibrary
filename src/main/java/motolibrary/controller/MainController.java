@@ -151,6 +151,84 @@ public class MainController {
         return "model/model_details_response";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "model/update")
+    public String updateModel(
+        Model model,
+        @RequestParam Long id
+    ) {
+        MainModel mainModel = manufactureService.findModelById(id);
+        model.addAttribute("mainModel", mainModel);
+        return "model/model_details_update";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "model/update/response")
+    public String updateModelResponse(
+        Model model,
+        @RequestParam String description,
+        @RequestParam String type,
+        @RequestParam String start,
+        @RequestParam String end,
+        @RequestParam String finalDrive,
+        @RequestParam String transmission,
+        @RequestParam String cc,
+        @RequestParam String power,
+        @RequestParam String torque,
+        @RequestParam String topSpeed,
+        @RequestParam String compression,
+        @RequestParam String rakeAngle,
+        @RequestParam String trail,
+        @RequestParam String brakesFront,
+        @RequestParam String brakesRear,
+        @RequestParam String tiresFront,
+        @RequestParam String tiresRear,
+        @RequestParam String length,
+        @RequestParam String width,
+        @RequestParam String height,
+        @RequestParam String seatHeight,
+        @RequestParam String wheelBase,
+        @RequestParam String fuelCapacity,
+        @RequestParam String fuelConsumption,
+        @RequestParam String dryWeight,
+        @RequestParam String wetWeight,
+        @RequestParam Integer manufactureId,
+        @RequestParam Long id
+    ) {
+
+        MainModel mainModel = new MainModel(
+            manufactureId, description, Integer.valueOf(start),
+            end.length() > 0 ? Integer.valueOf(end) : null
+        );
+        mainModel.setId(id);
+        mainModel.setType(type);
+        mainModel.setFinalDrive(finalDrive);
+        mainModel.setTransmission(transmission);
+        mainModel.setCc(cc);
+        mainModel.setPower(power);
+        mainModel.setTorque(torque);
+        mainModel.setTopSpeed(topSpeed);
+        mainModel.setCompression(compression);
+        mainModel.setRakeAngle(rakeAngle);
+        mainModel.setTrail(trail);
+        mainModel.setBrakesFront(brakesFront);
+        mainModel.setBrakesRear(brakesRear);
+        mainModel.setTiresFront(tiresFront);
+        mainModel.setTiresRear(tiresRear);
+        mainModel.setLength(length);
+        mainModel.setWidth(width);
+        mainModel.setHeight(height);
+        mainModel.setSeatHeight(seatHeight);
+        mainModel.setWheelBase(wheelBase);
+        mainModel.setFuelCapacity(fuelCapacity);
+        mainModel.setFuelConsumption(fuelConsumption);
+        mainModel.setDryWeight(dryWeight);
+        mainModel.setWetWeight(wetWeight);
+
+        model.addAttribute("mainModel", mainModel);
+        model.addAttribute("manufacture", getManufactureById(manufactureId));
+        manufactureService.updateModel(mainModel);
+        return "model/model_details_update_response";
+    }
+
     private Manufacture getManufactureById(Integer manufactureId) {
         return manufactureService.getSortedManufacture()
             .stream().filter(t -> t.getId() == manufactureId)

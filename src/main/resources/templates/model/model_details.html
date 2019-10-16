@@ -63,7 +63,12 @@
         <tr><td width="50">Wet weight</td> <td th:text="${mainModel.getWetWeight()}"></td></tr>
         </tbody>
     </table>
-
+    </p>
+    <form action="/model/update">
+        <input type="hidden" class="form-control" name = "id" id="id" th:value ="${mainModel.id}" required="true">
+        <input type="submit" class="btn btn-info" value="Update model"/>
+    </form>
+    </p>
     <form action="/models">
         <input type="hidden" class="form-control" name = "manufactureId" id="manufactureId" th:value ="${mainModel.getManufactureId()}" required="true">
         <input type="hidden" class="form-control" name = "manufacture" id="manufacture" th:value ="${manufacture.description}" required="true" />

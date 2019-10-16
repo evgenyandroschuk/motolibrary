@@ -4,6 +4,8 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import java.util.Optional;
+
 public class MainModel implements Comparable  {
 
     private Long id;
@@ -278,6 +280,12 @@ public class MainModel implements Comparable  {
             return "till now";
         }
         return endYear.toString();
+    }
+
+    public String getStartEndYearString() {
+        String start = getStartYear().toString();
+        String end = getEndYearString();
+        return start + " - " + end;
     }
 
     @Override
